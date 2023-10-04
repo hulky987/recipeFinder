@@ -2,13 +2,29 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Find your Recipe</title>
     </head>
     <body>
         <form id="recipeApi">
             <label for="ingredients">Zutaten eingeben:</label>
-            <input type="text" id="ingredients"/>
-            <button type="submit">Rezepte abfragen</button>
+            <input id="ingredients" type="text"/>
+            <label for="diet-type">Ernährungsart:</label>
+            <select id="diet-type" name="diet-type">
+                <option value="default">keine Einschränkungen</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarisch</option>
+                <option value="glutenFree">Glutenfrei</option>
+            </select>
+            <p>
+            <section id="meal-types">Mahlzeit-Kategorie:
+                <br>
+                <input name="meal-type" id="all" type="radio" value="all" checked>Alle<br>
+                <input name="meal-type" id="main course" type="radio" value="main course">Hauptgericht<br>
+                <input name="meal-type" id="breakfast" type="radio" value="breakfast">Frühstück<br>
+                <input name="meal-type" id="side dish" type="radio" value="side dish">Nebengericht<br>
+                <input name="meal-type" id="dessert" type="radio" value="dessert">Nachspeise<br><br>
+                <button type="submit">Rezepte abfragen</button>
+            </section>
         </form>
         <div id="recipeResponse"></div>
         <div id="errorResponse"></div>
