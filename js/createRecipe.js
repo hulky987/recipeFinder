@@ -3,7 +3,7 @@ import {getRecipeListFromLocalStorage, storeRecipeListInLocalStorage} from "./lo
 const form = document.getElementById("createRecipe");
 const addIngredientButton = document.getElementById("add-ingredient");
 
-
+// creates a new ingredient input field
 const createIngredientInput = () => {
     const units = ["g", "kg", "ml", "l", "Stk.", "TL", "EL", "Prise", "Tasse", "Pck.", "Dose",]
     const div = document.createElement("div");
@@ -35,6 +35,7 @@ const createIngredientInput = () => {
     div.appendChild(unitSelect);
     return div;
 }
+// adds a new ingredient input field
 addIngredientButton.addEventListener("click", (event) => {
     const ingredientsContainer = document.getElementById("ingredientsContainer");
     ingredientsContainer.appendChild(createIngredientInput());
@@ -49,13 +50,13 @@ form.addEventListener("submit", (event) => {
     // getting the recipes out of the local storage
     const recipeList = getRecipeListFromLocalStorage();
     const units = recipeList.map(recipe => recipe.extendedIngredients.map(ingredient => ingredient.unit))
-    console.log(units)
     // getting the values from the form
 
     const ingredientsContainer = document.getElementsByClassName("create-ingredients-container");
     const extendedIngredients = Array.from(ingredientsContainer).map(element => {
         return {name: element.children[0].value, amount: element.children[1].value, unit: element.children[2].value}
     });
+
     const title = document.getElementById("title");
     const instructions = document.getElementById("instructions");
     const dietTypeElements = document.querySelectorAll(`input[name="create-diet-type"]:checked`)
@@ -80,7 +81,7 @@ form.addEventListener("submit", (event) => {
     console.log(recipe)
 
     // pushing the recipe into the recipeList and storing it in the local storage
-    // recipeList.push(recipe);
-    // storeRecipeListInLocalStorage(recipeList);
+    recipeList.push(recipe);
+    storeRecipeListInLocalStorage(recipeList);
 
 });
