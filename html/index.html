@@ -3,8 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Find your Recipe</title>
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
+    <menu>
+
+           <a href="index.html">Home</a>
+           <a href="createRecipe.html">Rezept erstellen</a>
+            <a href="impressum.html">Impressum</a>
+
+    </menu>
+    <div class="container" >
+    <h1> Rezepte Abfragen </h1>
         <form id="recipeApi">
             <label for="ingredients">Zutaten eingeben:</label>
             <input id="ingredients" type="text"/>
@@ -28,7 +38,10 @@
         </form>
         <div id="recipeResponse"></div>
         <div id="errorResponse"></div>
-        <script type="module" src="api.js"></script>
-        <script src="recipeService.js"></script>
+    </div>
+        <script type="module" src="../js/api.js"></script>
+        <script type="module" src="../js/recipeService.js"></script>
+        <script type="module" src="../js/MockData.js"></script>
+        <script type="module" src="../js/localStorageService.js"></script>
     </body>
 </html>

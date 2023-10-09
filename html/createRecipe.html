@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find your Recipe</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<menu>
+    <a href="index.html">Home</a>
+    <a href="createRecipe.html">Rezept erstellen</a>
+    <a href="impressum.html">Impressum</a>
+</menu>
+<div class="container" >
+    <h1>Rezept erstellen</h1>
+    <form id="createRecipe">
+        <label for="title">Name:</label>
+        <input id="title" type="text"/>
+        <label for="cooking-time">Kochzeit in Minuten:</label>
+        <input id="cooking-time" type="number" min="0" />
+        <label for="create-ingredients">Zutaten eingeben:</label>
+        <input id="create-ingredients" type="text"/>
+        <label for="instructions">Anweisungen:</label>
+        <textarea  id="instructions" ></textarea>
+        <label for="create-diet-type">Ernährungsart:</label>
+        <select id="create-diet-type" name="diet-type">
+            <option value="default">keine Einschränkungen</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarisch</option>
+            <option value="glutenFree">Glutenfrei</option>
+        </select>
+        <label for="create-meal-type">Mahlzeiten-Kategorie:</label>
+        <select id="create-meal-type" name="diet-type">
+            <option value="mainCourse">Hauptgericht</option>
+            <option value="breakfast">Frühstück</option>
+            <option value="sideDish">Nebengericht</option>
+            <option value="desert">Nachspeise</option>
+        </select>
+        <button type="submit">Rezept erstellen</button>
+    </form>
+    <div id="container">
+        <script type="module" src="../js/localStorageService.js"></script>
+        <script type="module" src="../js/createRecipe.js"></script>
+</body>
+</html>

@@ -5,6 +5,10 @@ const errorResponse = document.getElementById("errorResponse");
 const dietTypes = document.getElementsByTagName("option");
 const mealTypes = document.getElementsByTagName("input");
 
+const API_KEY = "59e199f1b62247779346095f4dfe259e";
+const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
+const API_KEY_3  ="230a70bc0bb04fb3ac7c45843d5f4ec8"
+
 let recipesWithInformation = [];
 let filteredRecipeList = [];
 const recipeList = [];
@@ -12,8 +16,6 @@ const recipeList = [];
 let mealTypeValue = "";
 let dietTypeValue = "";
 
-const API_KEY = "59e199f1b62247779346095f4dfe259e";
-const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
 
 form.addEventListener("submit", (event) => {
 
