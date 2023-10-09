@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Find your Recipe</title>
@@ -7,39 +7,84 @@
 </head>
 <body>
 <menu>
-    <a href="index.html">Home</a>
-    <a href="createRecipe.html">Rezept erstellen</a>
-    <a href="impressum.html">Impressum</a>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="createRecipe.html">Rezept erstellen</a></li>
 </menu>
-<div class="container" >
-    <h1>Rezept erstellen</h1>
-    <form id="createRecipe">
-        <label for="title">Name:</label>
-        <input id="title" type="text"/>
-        <label for="cooking-time">Kochzeit in Minuten:</label>
-        <input id="cooking-time" type="number" min="0" />
-        <label for="create-ingredients">Zutaten eingeben:</label>
-        <input id="create-ingredients" type="text"/>
-        <label for="instructions">Anweisungen:</label>
-        <textarea  id="instructions" ></textarea>
-        <label for="create-diet-type">Ernährungsart:</label>
-        <select id="create-diet-type" name="diet-type">
-            <option value="default">keine Einschränkungen</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarisch</option>
-            <option value="glutenFree">Glutenfrei</option>
-        </select>
-        <label for="create-meal-type">Mahlzeiten-Kategorie:</label>
-        <select id="create-meal-type" name="diet-type">
-            <option value="mainCourse">Hauptgericht</option>
-            <option value="breakfast">Frühstück</option>
-            <option value="sideDish">Nebengericht</option>
-            <option value="desert">Nachspeise</option>
-        </select>
-        <button type="submit">Rezept erstellen</button>
-    </form>
-</div>
-        <script type="module" src="../js/localStorageService.js"></script>
-        <script type="module" src="../js/createRecipe.js"></script>
+<main>
+
+    <div class="container">
+        <h1>Rezept erstellen</h1>
+        <form id="createRecipe">
+            <div class="outerBox">
+                <div class="box">
+                    <label for="title">Name:</label>
+                    <input id="title" type="text"/>
+                    <label for="summary">Beschreibung:</label>
+                    <textarea id="summary"></textarea>
+                    <label for="cooking-time">Kochzeit in Minuten:</label>
+                    <input id="cooking-time" type="number" min="0"/>
+                    <div id="ingredientsContainer">
+                        <label>Zutaten eingeben:</label>
+                        <div class="create-ingredients-container">
+                            <input class="create-ingredient" placeholder="Zutat" type="text"/>
+                            <input name="create-amount" type="number" placeholder="Menge"/>
+                            <select name="create-unit" class="create-unit">
+                                <option value="g">g</option>
+                                <option value="kg">kg</option>
+                                <option value="ml">ml</option>
+                                <option value="l">l</option>
+                                <option value="Stk.">Stk.</option>
+                                <option value="TL">TL</option>
+                                <option value="EL">EL</option>
+                                <option value="Prise">Prise</option>
+                                <option value="Pkg.">Packung</option>
+                                <option value="Dose">Dose</option>
+                                <option value="Tasse">Tasse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="add-ingredient" type="button">Zutat hinzufügen</button>
+                    <label for="instructions">Anweisungen:</label>
+                    <textarea id="instructions"></textarea>
+
+                    <section id="create-diet-types">Ernährungsart:
+                        <br>
+                        <input name="create-diet-type" id="vegan" type="checkbox" value="vegan">Vegan<br>
+                        <input name="create-diet-type" id="dairyFree" type="checkbox" value="dairy free">Lactose
+                        frei<br>
+                        <input name="create-diet-type" id="vegetarian" type="checkbox"
+                               value="vegetarian">Vegetarisch<br>
+                        <input name="create-diet-type" id="glutenFree" type="checkbox"
+                               value="gluten free">Glutenfrei<br>
+                    </section>
+                </div>
+                <div class="box">
+
+
+                    <section id="create-meal-types">Mahlzeit-Kategorie:
+                        <br>
+                        <input name="create-meal-type" id="appetizer" type="checkbox" value="appetizer">Appetizer<br>
+                        <input name="create-meal-type" id="soup" type="checkbox" value="soup">Suppe<br>
+                        <input name="create-meal-type" id="starter" type="checkbox" value="starter">Vorspeise<br>
+                        <input name="create-meal-type" id="main course" type="checkbox" value="main course">Hauptgericht<br>
+                        <input name="create-meal-type" id="side dish" type="checkbox" value="side dish">Nebengericht<br>
+                        <input name="create-meal-type" id="dessert" type="checkbox" value="dessert">Nachspeise<br>
+                    </section>
+                    <br>
+                    <section id="create-meal-times">Mahlzeiten:
+                        <br>
+                        <input name="create-meal-type" id="snack" type="checkbox" value="snack">Snack<br>
+                        <input name="create-meal-type" id="dinner" type="checkbox" value="dinner">Abendessen<br>
+                        <input name="create-meal-type" id="lunch" type="checkbox" value="lunch">Mittagessen<br>
+                        <input name="create-meal-type" id="breakfast" type="checkbox" value="breakfast">Frühstück<br>
+                    </section>
+                </div>
+            </div>
+            <button id="submitButton" type="submit">Rezept erstellen</button>
+        </form>
+    </div>
+</main>
+<script type="module" src="../js/localStorageService.js"></script>
+<script type="module" src="../js/createRecipe.js"></script>
 </body>
 </html>
