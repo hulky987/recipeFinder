@@ -4,6 +4,7 @@ const recipeResponse = document.getElementById("recipeResponse");
 const errorResponse = document.getElementById("errorResponse");
 const dietTypes = document.getElementsByTagName("option");
 const mealTypes = document.getElementsByTagName("input");
+const recipeSummary = document.getElementById("recipeSummary");
 
 const API_KEY = "59e199f1b62247779346095f4dfe259e";
 const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
@@ -17,30 +18,43 @@ let mealTypeValue = "";
 let dietTypeValue = "";
 
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-    fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY}`)
-        .then(response => response.json())
-        .then(recipes => {
-            recipes.forEach(recipe => {
-                recipeList.push(recipe);
-            })
-            getRecipeInformation(recipeList);
-            recipeResponse.textContent = `Es wurden ${recipes.length} Rezepte gefunden: ${recipeList.map(recipe => recipe.title)}`;
-            errorResponse.textContent = "";
+    let recipes = [];
+
+    try {
+        const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY}`);
+        recipes = await response.json();
+
+        recipes.forEach(recipe => {
+            recipeList.push(recipe);
         })
-        .catch(error => {
-            recipeResponse.textContent = "";
-            errorResponse.textContent = `Fetch Error by getting recipe: ${error.message}`;
-        });
+        await getRecipeInformation(recipeList);
+        // recipeResponse.textContent = `Es wurden ${recipes.length} Rezepte gefunden: ${recipeList.map(recipe => recipe.title)}`;
+        await recipesWithInformation.forEach(recipe => {
+            const recipeImage = document.createElement("img");
+            recipeImage.setAttribute("src", `${recipe.image}`);
+            recipeImage.setAttribute("class", "recipeImage");
+            const recipeItem = document.createElement("div");
+            recipeItem.setAttribute("class", "recipeItem");
+            recipeItem.addEventListener("click", function () {
+                createSummary(recipe)
+            });
+            recipeItem.innerHTML = `${recipeImage.outerHTML}<div>${recipe.title}</div>`;
+            recipeResponse.appendChild(recipeItem);
+        })
+
+        errorResponse.textContent = "";
+    } catch (error) {
+        recipeResponse.textContent = "";
+        errorResponse.textContent = `Fetch Error by getting recipe: ${error.message}`;
+    }
 
     determineCheckedMealType();
     determineSelectedDietType();
 
-    filterRecipeListByDietType();
-
-    console.log(`recipeList: `, recipeList, `\ndietType: `, dietTypeValue, '\nmealType: ', mealTypeValue, `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
+    await filterRecipeListByDietType();
 
     form.reset();
 });
@@ -61,22 +75,39 @@ function determineSelectedDietType() {
     }
 }
 
-function filterRecipeListByDietType() {
+async function filterRecipeListByDietType() {
     filteredRecipeList = recipesWithInformation.filter(recipe => {
         recipe.dishTypes.includes(`${mealTypeValue}`);
     });
+
+    console.log(`recipeList: `, recipeList, `\ndietType: `, dietTypeValue, '\nmealType: ', mealTypeValue, `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
 }
 
-function getRecipeInformation(recipeList) {
+async function getRecipeInformation(recipeList) {
 
     const recipeIds = recipeList.map(recipe => recipe.id);
-    fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY}`)
-        .then(response => response.json())
-        .then(recipeList => {
-            recipesWithInformation = recipeList;
-        })
-        .catch(error => {
-            recipeResponse.textContent = "";
-            errorResponse.textContent = `Fetch Error by getting recipe information: ${error.message}`;
-        })
+
+    let recipes = [];
+
+    try {
+        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY}`);
+        recipes = await response.json();
+
+        recipesWithInformation = recipes;
+    } catch (error) {
+        recipeResponse.textContent = "";
+        errorResponse.textContent = `Fetch Error by getting recipe information: ${error.message}`;
+    }
 }
+
+function createSummary(recipe) {
+
+    recipeSummary.innerHTML = "";
+
+    const summaryView = document.createElement("div");
+    summaryView.innerHTML = `${recipe.summary}`;
+
+    recipeSummary.appendChild(summaryView);
+}
+
+

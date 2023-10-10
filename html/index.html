@@ -16,10 +16,10 @@
     <h1> Rezepte Abfragen </h1>
         <form id="recipeApi">
             <label for="ingredients">Zutaten eingeben:</label>
-            <input id="ingredients" type="text"/>
+            <input id="ingredients" type="text" required/>
             <label for="diet-type">Ernährungsart:</label>
             <select id="diet-type" name="diet-type">
-                <option value="default">keine Einschränkungen</option>
+                <option value="default" selected>keine Einschränkungen</option>
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarisch</option>
                 <option value="glutenFree">Glutenfrei</option>
@@ -27,7 +27,7 @@
             <p>
             <section id="meal-types">Mahlzeit-Kategorie:
                 <br>
-                <input name="meal-type" id="all" type="radio" value="all">Alle<br>
+                <input name="meal-type" id="all" type="radio" value="all" checked>Alle<br>
                 <input name="meal-type" id="main course" type="radio" value="main course">Hauptgericht<br>
                 <input name="meal-type" id="breakfast" type="radio" value="breakfast">Frühstück<br>
                 <input name="meal-type" id="side dish" type="radio" value="side dish">Nebengericht<br>
@@ -35,8 +35,10 @@
                 <button type="submit">Rezepte abfragen</button>
             </section>
         </form>
-        <div id="recipeResponse"></div>
+        <div id="recipeSummary" class="recipeSummary"></div>
+        <div id="recipeResponse" class="recipeResponse"></div>
         <div id="errorResponse"></div>
+        <div id="recipeItem" class="recipeItem"></div>
     </div>
     </main>
         <script type="module" src="../js/api.js"></script>
