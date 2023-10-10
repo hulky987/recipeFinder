@@ -66,3 +66,25 @@ form {
     flex-direction: row;
     gap: 20px;
 }
+
+.recipeResponse {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /*background-color: red;*/
+
+    .recipeItem {
+        display: flex;
+        flex-direction: row;
+        /*width: 10rem;*/
+        /*height: 10rem;*/
+        background-color: #666666;
+        margin: 1rem;
+        cursor: pointer;
+
+        .recipeImage {
+            display: flex;
+            height: 80%;
+            width: 80%;
+        }
+    }
+}
