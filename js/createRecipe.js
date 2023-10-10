@@ -5,17 +5,17 @@ const addIngredientButton = document.getElementById("add-ingredient");
 
 // creates a new ingredient input field
 const createIngredientInput = () => {
-    const units = ["g", "kg", "ml", "l", "Stk.", "TL", "EL", "Prise", "Tasse", "Pck.", "Dose",]
+    const unitValues = [{unit:"g", name:"g"}, {unit:"kg",name:"kg"}, {unit:"ml",name:"ml"}, {unit:"l",name:"l"},{unit: "pieces",name:"Stück"}, {unit:"teaspoon",name:"TL"}, {unit:"tablespoon",name:"EL"},{unit:"pinch",name: "Prise"},{unit:"cup",name: "Tasse"},{unit:"package",name: "Packung"}, {unit:"can", name:"Dose"}]
     const div = document.createElement("div");
     div.setAttribute("class", "create-ingredients-container");
 
     const unitSelect = document.createElement("select");
     unitSelect.setAttribute("name", "create-unit");
     unitSelect.setAttribute("class", "create-unit");
-    units.forEach(unit => {
+    unitValues.forEach(unit => {
         const option = document.createElement("option");
-        option.setAttribute("value", unit);
-        option.textContent = unit;
+        option.setAttribute("value", unit.unit);
+        option.textContent = unit.name;
         unitSelect.appendChild(option);
     })
 
