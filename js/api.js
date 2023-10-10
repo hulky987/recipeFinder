@@ -24,7 +24,7 @@ form.addEventListener("submit", async (event) => {
     let recipes = [];
 
     try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY}`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY_2}`);
         recipes = await response.json();
 
         recipes.forEach(recipe => {
@@ -39,7 +39,7 @@ form.addEventListener("submit", async (event) => {
             const recipeItem = document.createElement("div");
             recipeItem.setAttribute("class", "recipeItem");
             recipeItem.addEventListener("click", function () {
-                createSummary(recipe)
+                createSummary(recipe);
             });
             recipeItem.innerHTML = `${recipeImage.outerHTML}<div>${recipe.title}</div>`;
             recipeResponse.appendChild(recipeItem);
@@ -90,7 +90,7 @@ async function getRecipeInformation(recipeList) {
     let recipes = [];
 
     try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY}`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY_2}`);
         recipes = await response.json();
 
         recipesWithInformation = recipes;
@@ -105,9 +105,23 @@ function createSummary(recipe) {
     recipeSummary.innerHTML = "";
 
     const summaryView = document.createElement("div");
-    summaryView.innerHTML = `${recipe.summary}`;
+    summaryView.setAttribute("class", "summaryContent");
+    summaryView.innerHTML = `<span class="close">&times;</span><img src=${recipe.image}><div>${recipe.title}</div>${recipe.summary}`;
 
     recipeSummary.appendChild(summaryView);
+    recipeSummary.style.display = "block";
+
+    window.onclick = function(event) {
+        if (event.target === recipeSummary) {
+            recipeSummary.style.display = "none";
+        }
+    }
+
+    let span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+        recipeSummary.style.display = "none";
+    }
 }
 
 
