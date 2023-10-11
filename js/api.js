@@ -158,7 +158,8 @@ function createSummary(recipe) {
     summaryView.innerHTML = `<span class="close">&times;</span>
 <h1>${recipe.title}</h1><img class="summaryImage" src=${recipe.image} alt=${recipe.title}>
 <label>Preparation time:</label><div>${recipe.readyInMinutes} minutes</div>
-<label>Ingredients:</label><div>${ingredientNames}</div><label>Instructions:</label><div class="instructions">${recipe.instructions}</div>`;
+<label>Ingredients:</label><div>${ingredientNames}</div><label>Instructions:</label><div class="instructions">${recipe.instructions}</div>
+<label>Summary</label><div>${recipe.summary}</div>`;
 
     recipeSummary.appendChild(summaryView);
     recipeSummary.style.display = "block";
