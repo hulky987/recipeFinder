@@ -2,7 +2,7 @@ import {getRecipeListFromLocalStorage, storeRecipeListInLocalStorage} from "./lo
 
 const form = document.getElementById("recipeApi");
 const ingredients = document.getElementById("ingredients");
-const recipeResponse = document.getElementById("recipeResponse");
+let recipeResponse = document.getElementById("recipeResponse");
 const errorResponse = document.getElementById("errorResponse");
 const dietTypes = document.getElementsByTagName("option");
 const mealTypes = document.getElementsByTagName("input");
@@ -10,11 +10,11 @@ const recipeSummary = document.getElementById("recipeSummary");
 
 const API_KEY = "59e199f1b62247779346095f4dfe259e";
 const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
-const API_KEY_3  ="230a70bc0bb04fb3ac7c45843d5f4ec8"
+const API_KEY_3 = "230a70bc0bb04fb3ac7c45843d5f4ec8"
 
 let recipesWithInformation = getRecipeListFromLocalStorage()
-let filteredRecipeList = [];
-const recipeList = [];
+let filteredRecipeList = recipesWithInformation;
+let recipeList = [];
 
 let mealTypeValue = "";
 let dietTypeValue = "";
@@ -23,18 +23,22 @@ let dietTypeValue = "";
 form.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-    // let recipes = [];
 
-    // try {
-    //     const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY_3}`);
-    //     recipes = await response.json();
-    //
-    //     recipes.forEach(recipe => {
-    //         recipeList.push(recipe);
-    //     })
-    //     await getRecipeInformation(recipeList);
-        // recipeResponse.textContent = `Es wurden ${recipes.length} Rezepte gefunden: ${recipeList.map(recipe => recipe.title)}`;
-        await recipesWithInformation.forEach(recipe => {
+    determineCheckedMealType();
+    determineSelectedDietType();
+
+    if (dietTypeValue !== "default") {
+        await filterRecipeListByDietType();
+    }
+
+    if (mealTypeValue !== "all") {
+        await filterRecipeListByMealType();
+    }
+
+
+    recipeResponse.innerHTML = "";
+    if (filteredRecipeList.length > 0) {
+        filteredRecipeList.forEach(recipe => {
             const recipeImage = document.createElement("img");
             recipeImage.setAttribute("src", `${recipe.image}`);
             recipeImage.setAttribute("class", "recipeImage");
@@ -46,43 +50,59 @@ form.addEventListener("submit", async (event) => {
             recipeItem.innerHTML = `${recipeImage.outerHTML}<div>${recipe.title}</div>`;
             recipeResponse.appendChild(recipeItem);
         })
-    //
-    //     errorResponse.textContent = "";
-    // } catch (error) {
-    //     recipeResponse.textContent = "";
-    //     errorResponse.textContent = `Fetch Error by getting recipe: ${error.message}`;
-    // }
+        errorResponse.textContent = "";
+    } else {
+        errorResponse.textContent = "No recipes found. Please try it with antoher input."
+    }
 
-    determineCheckedMealType();
-    determineSelectedDietType();
 
-    await filterRecipeListByDietType();
+    console.log(`recipeList: `, recipeList, `\ndietType: `, dietTypeValue, '\nmealType: ', mealTypeValue,
+        `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
 
     form.reset();
 });
 
 function determineCheckedMealType() {
-    for (let i = 0; i < mealTypes.length; i++) {
-        if (mealTypes[i].checked) {
-            mealTypeValue = mealTypes[i].value;
+    for (const element of mealTypes) {
+        if (element.checked) {
+            mealTypeValue = element.value;
         }
     }
 }
 
 function determineSelectedDietType() {
-    for (let i = 0; i < dietTypes.length; i++) {
-        if (dietTypes[i].selected) {
-            dietTypeValue = dietTypes[i].value;
+    for (const element of dietTypes) {
+        if (element.selected) {
+            dietTypeValue = element.value;
         }
     }
 }
 
 async function filterRecipeListByDietType() {
-    filteredRecipeList = recipesWithInformation.filter(recipe => {
-        recipe.dishTypes.includes(`${mealTypeValue}`);
-    });
+    filteredRecipeList = [];
+    switch (dietTypeValue) {
+        case "vegan":
+            filteredRecipeList = recipesWithInformation.filter(recipe => {
+                return recipe.vegan;
+            });
+            break;
+        case "vegetarian":
+            filteredRecipeList = recipesWithInformation.filter(recipe => {
+                return recipe.vegetarian;
+            });
+            break;
+        case "glutenFree":
+            filteredRecipeList = recipesWithInformation.filter(recipe => {
+                return recipe.glutenFree;
+            });
+            break;
+    }
+}
 
-    console.log(`recipeList: `, recipeList, `\ndietType: `, dietTypeValue, '\nmealType: ', mealTypeValue, `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
+async function filterRecipeListByMealType() {
+    filteredRecipeList = filteredRecipeList.filter(recipe => {
+        return recipe.dishTypes.includes(`${mealTypeValue}`);
+    });
 }
 
 async function getRecipeInformation(recipeList) {
@@ -108,12 +128,12 @@ function createSummary(recipe) {
 
     const summaryView = document.createElement("div");
     summaryView.setAttribute("class", "summaryContent");
-    summaryView.innerHTML = `<span class="close">&times;</span><img src=${recipe.image}><div>${recipe.title}</div>${recipe.summary}`;
+    summaryView.innerHTML = `<span class="close">&times;</span><img src=${recipe.image} alt=${recipe.title}><div>${recipe.title}</div>${recipe.summary}`;
 
     recipeSummary.appendChild(summaryView);
     recipeSummary.style.display = "block";
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target === recipeSummary) {
             recipeSummary.style.display = "none";
         }
@@ -121,7 +141,7 @@ function createSummary(recipe) {
 
     let span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() {
+    span.onclick = function () {
         recipeSummary.style.display = "none";
     }
 }
