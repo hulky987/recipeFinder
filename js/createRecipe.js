@@ -42,6 +42,8 @@ addIngredientButton.addEventListener("click", (event) => {
 })
 
 
+
+
 form.addEventListener("submit", (event) => {
     "use strict"
     event.preventDefault()

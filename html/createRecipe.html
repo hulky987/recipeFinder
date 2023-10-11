@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<menu>
+<menu id="mainMenue">
     <li><a href="index.html">Home</a></li>
     <li><a href="createRecipe.html">Rezept erstellen</a></li>
 </menu>
@@ -18,17 +18,17 @@
             <div class="outerBox">
                 <div class="box">
                     <label for="title">Name:</label>
-                    <input id="title" type="text"/>
+                    <input id="title" type="text" required/>
                     <label for="summary">Beschreibung:</label>
-                    <textarea id="summary"></textarea>
+                    <textarea id="summary" required></textarea>
                     <label for="cooking-time">Kochzeit in Minuten:</label>
-                    <input id="cooking-time" type="number" min="0"/>
+                    <input id="cooking-time" type="number" min="0" required/>
                     <div id="ingredientsContainer">
                         <label>Zutaten eingeben:</label>
                         <div class="create-ingredients-container">
-                            <input class="create-ingredient" placeholder="Zutat" type="text"/>
-                            <input name="create-amount" type="number" placeholder="Menge"/>
-                            <select name="create-unit" class="create-unit">
+                            <input class="create-ingredient" placeholder="Zutat" type="text" required/>
+                            <input name="create-amount" type="number" placeholder="Menge" required/>
+                            <select name="create-unit" class="create-unit" required>
                                 <option value="g">g</option>
                                 <option value="kg">kg</option>
                                 <option value="ml">ml</option>
@@ -45,7 +45,7 @@
                     </div>
                     <button id="add-ingredient" type="button">Zutat hinzufügen</button>
                     <label for="instructions">Anweisungen:</label>
-                    <textarea id="instructions"></textarea>
+                    <textarea id="instructions" required></textarea>
 
                     <section id="create-diet-types">Ernährungsart:
                         <br>
