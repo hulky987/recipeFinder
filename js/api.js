@@ -1,3 +1,5 @@
+import {getRecipeListFromLocalStorage, storeRecipeListInLocalStorage} from "./localStorageService.js";
+
 const form = document.getElementById("recipeApi");
 const ingredients = document.getElementById("ingredients");
 const recipeResponse = document.getElementById("recipeResponse");
@@ -10,7 +12,7 @@ const API_KEY = "59e199f1b62247779346095f4dfe259e";
 const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
 const API_KEY_3  ="230a70bc0bb04fb3ac7c45843d5f4ec8"
 
-let recipesWithInformation = [];
+let recipesWithInformation = getRecipeListFromLocalStorage()
 let filteredRecipeList = [];
 const recipeList = [];
 
@@ -21,16 +23,16 @@ let dietTypeValue = "";
 form.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-    let recipes = [];
+    // let recipes = [];
 
-    try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY_2}`);
-        recipes = await response.json();
-
-        recipes.forEach(recipe => {
-            recipeList.push(recipe);
-        })
-        await getRecipeInformation(recipeList);
+    // try {
+    //     const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.value.trim()}&number=10&apiKey=${API_KEY_3}`);
+    //     recipes = await response.json();
+    //
+    //     recipes.forEach(recipe => {
+    //         recipeList.push(recipe);
+    //     })
+    //     await getRecipeInformation(recipeList);
         // recipeResponse.textContent = `Es wurden ${recipes.length} Rezepte gefunden: ${recipeList.map(recipe => recipe.title)}`;
         await recipesWithInformation.forEach(recipe => {
             const recipeImage = document.createElement("img");
@@ -44,12 +46,12 @@ form.addEventListener("submit", async (event) => {
             recipeItem.innerHTML = `${recipeImage.outerHTML}<div>${recipe.title}</div>`;
             recipeResponse.appendChild(recipeItem);
         })
-
-        errorResponse.textContent = "";
-    } catch (error) {
-        recipeResponse.textContent = "";
-        errorResponse.textContent = `Fetch Error by getting recipe: ${error.message}`;
-    }
+    //
+    //     errorResponse.textContent = "";
+    // } catch (error) {
+    //     recipeResponse.textContent = "";
+    //     errorResponse.textContent = `Fetch Error by getting recipe: ${error.message}`;
+    // }
 
     determineCheckedMealType();
     determineSelectedDietType();
@@ -90,7 +92,7 @@ async function getRecipeInformation(recipeList) {
     let recipes = [];
 
     try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY_2}`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY_3}`);
         recipes = await response.json();
 
         recipesWithInformation = recipes;
