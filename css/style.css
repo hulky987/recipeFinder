@@ -106,6 +106,27 @@ form {
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
+        height: 80%;
+        overflow: scroll;
+
+        & > label {
+            font-weight: bold;
+        }
+
+        & > h1 {
+            text-align: center;
+        }
+
+        .summaryImage {
+            float: left;
+            margin-right: 2rem;
+        }
+
+        .instructions {
+            display: flex;
+        }
+
+
     }
 
     .close {

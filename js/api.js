@@ -1,4 +1,4 @@
-import {getRecipeListFromLocalStorage, storeRecipeListInLocalStorage} from "./localStorageService.js";
+import {getRecipeListFromLocalStorage} from "./localStorageService.js";
 
 const form = document.getElementById("recipeApi");
 const ingredients = document.getElementById("ingredients");
@@ -122,13 +122,43 @@ async function getRecipeInformation(recipeList) {
     }
 }
 
+
+function getIngredients(recipe) {
+    let ingredientNames = [];
+
+    let analyzedInstructions = recipe.analyzedInstructions;
+    if (analyzedInstructions) {
+        for (const element of analyzedInstructions) {
+            let steps = element.steps;
+            if (steps) {
+                for (const element of steps) {
+                    let ingredients = element.ingredients;
+                    if (ingredients) {
+                        for (const element of ingredients) {
+                            let ingredientName = element.name;
+                            ingredientNames.push(ingredientName);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return ingredientNames;
+}
+
 function createSummary(recipe) {
 
     recipeSummary.innerHTML = "";
 
+    let ingredientNames = getIngredients(recipe);
+
+
     const summaryView = document.createElement("div");
     summaryView.setAttribute("class", "summaryContent");
-    summaryView.innerHTML = `<span class="close">&times;</span><img src=${recipe.image} alt=${recipe.title}><div>${recipe.title}</div>${recipe.summary}`;
+    summaryView.innerHTML = `<span class="close">&times;</span>
+<h1>${recipe.title}</h1><img class="summaryImage" src=${recipe.image} alt=${recipe.title}>
+<label>Preparation time:</label><div>${recipe.readyInMinutes} minutes</div>
+<label>Ingredients:</label><div>${ingredientNames}</div><label>Instructions:</label><div class="instructions">${recipe.instructions}</div>`;
 
     recipeSummary.appendChild(summaryView);
     recipeSummary.style.display = "block";
