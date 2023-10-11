@@ -13,16 +13,21 @@ const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
 const API_KEY_3 = "230a70bc0bb04fb3ac7c45843d5f4ec8"
 
 let recipesWithInformation = getRecipeListFromLocalStorage()
-let filteredRecipeList = recipesWithInformation;
-let recipeList = [];
+let filteredRecipeList = [];
 
 let mealTypeValue = "";
 let dietTypeValue = "";
 
-
 form.addEventListener("submit", async (event) => {
 
     event.preventDefault();
+
+    if (ingredients.value.trim() !== "") {
+        await filterRecipeListByIngredients(recipesWithInformation);
+    } else {
+        filteredRecipeList = recipesWithInformation;
+    }
+
 
     determineCheckedMealType();
     determineSelectedDietType();
@@ -56,11 +61,44 @@ form.addEventListener("submit", async (event) => {
     }
 
 
-    console.log(`recipeList: `, recipeList, `\ndietType: `, dietTypeValue, '\nmealType: ', mealTypeValue,
+    console.log(`dietType: `, dietTypeValue, '\nmealType: ', mealTypeValue,
         `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
 
     form.reset();
 });
+
+async function filterRecipeListByIngredients(recipeList) {
+    filteredRecipeList = [];
+    const ingredientsToFilter = ingredients.value.split();
+    for (const recipe of recipeList) {
+        let analyzedInstructions = recipe.analyzedInstructions;
+        if (analyzedInstructions) {
+            for (const element of analyzedInstructions) {
+                let instruction = element;
+                let recipeIngredients = [];
+
+                let steps = instruction.steps;
+                if (steps) {
+                    for (const element of steps) {
+                        let ingredients = element.ingredients;
+                        if (ingredients) {
+                            for (const element of ingredients) {
+                                let ingredientName = element.name;
+                                recipeIngredients.push(ingredientName);
+                            }
+                        }
+                    }
+                }
+
+                let containsAllIngredients = ingredientsToFilter.every(ingredient => recipeIngredients.includes(ingredient));
+
+                if (containsAllIngredients) {
+                    filteredRecipeList.push(recipe);
+                }
+            }
+        }
+    }
+}
 
 function determineCheckedMealType() {
     for (const element of mealTypes) {

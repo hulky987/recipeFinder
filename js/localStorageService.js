@@ -18,5 +18,4 @@ function storeRecipeListInLocalStorage(recipeList) {
 }
 
 
-// console.log("RecipeList", recipeList);
 export  { getRecipeListFromLocalStorage, storeRecipeListInLocalStorage}
