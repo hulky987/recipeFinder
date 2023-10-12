@@ -2,13 +2,63 @@ label {
     display: block;
 }
 
+input {
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+    background-color: cornsilk;
+    margin-bottom: 10px;
+}
+textarea {
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+    background-color: cornsilk;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: cornsilk;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
 menu {
+    color: black;
+    font-size: 1.2em;
     padding: 20px;
-    max-width: 800px;
+    max-width: 960px;
     width: 100%;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+}
+section {
+    font-weight: bold;
+
+    font-family: sans-serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    .sectionInput {
+        font-size: 1.0em;
+    }
 }
 
 body {
@@ -23,19 +73,26 @@ body {
 
 }
 
+
 .container {
     display: flex;
     align-items: center;
     flex-direction: column;
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.2em;
+
 }
 
 form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
 }
 #submitButton{
     margin-top: 10px;
@@ -61,7 +118,7 @@ form {
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .create-ingredients-container {
@@ -79,12 +136,18 @@ form {
         flex-direction: column;
         margin: 1rem;
         cursor: pointer;
+        border-radius: 10px;
 
         .recipeImage {
             display: flex;
             height: 12rem;
+            border-radius: 10px;
         }
     }
+}
+.itemDescription{
+display: flex;
+    align-self: center;
 }
 
 .recipeSummary {
@@ -101,13 +164,14 @@ form {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
     .summaryContent {
-        background-color: #fefefe;
+        background-color: beige;
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
-        height: 80%;
-        overflow: scroll;
+        height: auto;
+        /*overflow: scroll;*/
+        border-radius: 20px;
 
         & > label {
             font-weight: bold;
@@ -120,6 +184,7 @@ form {
         .summaryImage {
             float: left;
             margin-right: 2rem;
+            border-radius: 10px;
         }
 
         .instructions {
@@ -146,6 +211,14 @@ form {
 
 .timeFilter {
     display: none;
-    padding: 2rem;
+    /*padding: 2rem;*/
+    padding-bottom:2rem ;
+    padding-top:2rem ;
+    padding-right:2rem ;
+}
+
+li{
+    list-style-type: none;
+    text-decoration: none;
 }
 

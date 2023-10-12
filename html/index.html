@@ -7,11 +7,12 @@
     </head>
     <body>
     <menu>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Rezeptabfrage</a></li>
         <li> <a href="createRecipe.html">Rezept erstellen</a></li>
+        <li> <a href="favorites.html">Favoriten</a></li>
     </menu>
-    <main>
 
+    <main>
     <div class="container" >
     <h1> Rezepte Abfragen </h1>
         <form id="recipeApi">
@@ -27,22 +28,22 @@
             <p>
             <section id="meal-types">Mahlzeit-Kategorie:
                 <br>
-                <input name="meal-type" id="all" type="radio" value="all" checked>Alle<br>
-                <input name="meal-type" id="main course" type="radio" value="main course">Hauptgericht<br>
-                <input name="meal-type" id="breakfast" type="radio" value="breakfast">Frühstück<br>
-                <input name="meal-type" id="side dish" type="radio" value="side dish">Nebengericht<br>
-                <input name="meal-type" id="dessert" type="radio" value="dessert">Nachspeise<br><br>
+                <input name="meal-type" class="sectionInput" id="all" type="radio" value="all" checked> Alle<br>
+                <input name="meal-type" class="sectionInput" id="main course" type="radio" value="main course"> Hauptgericht<br>
+                <input name="meal-type" class="sectionInput" id="breakfast" type="radio" value="breakfast"> Frühstück<br>
+                <input name="meal-type" class="sectionInput" id="side dish" type="radio" value="side dish"> Nebengericht<br>
+                <input name="meal-type" class="sectionInput" id="dessert" type="radio" value="dessert"> Nachspeise<br><br>
                 <button type="submit">Rezepte abfragen</button>
             </section>
         </form>
         <form id="formTimeFilter">
             <div id="timeFilter" class="timeFilter">
                 <label for="timeFilter">Maximale Zubereitungszeit in Minuten: </label>
-                <input type="radio" name="filterInMinutes" id="15" value="15">15
-                <input type="radio" name="filterInMinutes" id="30" value="30">30
-                <input type="radio" name="filterInMinutes" id="45" value="45">45
-                <input type="radio" name="filterInMinutes" id="60" value="60">60
-                <input type="radio" name="filterInMinutes" id="75" value="75">75
+                <input type="radio" class="sectionInput" name="filterInMinutes" id="15" value="15">15
+                <input type="radio" class="sectionInput" name="filterInMinutes" id="30" value="30">30
+                <input type="radio" class="sectionInput" name="filterInMinutes" id="45" value="45">45
+                <input type="radio" class="sectionInput"  name="filterInMinutes" id="60" value="60">60
+                <input type="radio" class="sectionInput"name="filterInMinutes" id="75" value="75">75
                 <button type="submit">Ergebnisse filtern</button>
             </div>
         </form>

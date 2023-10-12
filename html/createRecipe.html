@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<menu id="mainMenue">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="createRecipe.html">Rezept erstellen</a></li>
+<menu>
+    <li><a href="index.html">Rezeptabfrage</a></li>
+    <li> <a href="createRecipe.html">Rezept erstellen</a></li>
+    <li> <a href="favorites.html">Favoriten</a></li>
 </menu>
-<main>
 
+<main>
     <div class="container">
         <h1>Rezept erstellen</h1>
         <form id="createRecipe">
@@ -27,7 +28,7 @@
                         <label>Zutaten eingeben:</label>
                         <div class="create-ingredients-container">
                             <input class="create-ingredient" placeholder="Zutat" type="text" required/>
-                            <input name="create-amount" type="number" placeholder="Menge" required/>
+                            <input name="create-amount" type="number" placeholder="Menge" min="0" required/>
                             <select name="create-unit" class="create-unit" required>
                                 <option value="g">g</option>
                                 <option value="kg">kg</option>
@@ -49,13 +50,13 @@
 
                     <section id="create-diet-types">Ernährungsart:
                         <br>
-                        <input name="create-diet-type" id="vegan" type="checkbox" value="vegan">Vegan<br>
-                        <input name="create-diet-type" id="dairyFree" type="checkbox" value="dairy free">Lactose
+                        <input name="create-diet-type" class="sectionInput" id="vegan" type="checkbox" value="vegan"> Vegan<br>
+                        <input name="create-diet-type" class="sectionInput" id="dairyFree" type="checkbox" value="dairy free"> Lactose
                         frei<br>
-                        <input name="create-diet-type" id="vegetarian" type="checkbox"
-                               value="vegetarian">Vegetarisch<br>
-                        <input name="create-diet-type" id="glutenFree" type="checkbox"
-                               value="gluten free">Glutenfrei<br>
+                        <input name="create-diet-type" class="sectionInput" id="vegetarian" type="checkbox"
+                               value="vegetarian"> Vegetarisch<br>
+                        <input name="create-diet-type" class="sectionInput" id="glutenFree" type="checkbox"
+                               value="gluten free"> Glutenfrei<br>
                     </section>
                 </div>
                 <div class="box">
@@ -63,20 +64,20 @@
 
                     <section id="create-meal-types">Mahlzeit-Kategorie:
                         <br>
-                        <input name="create-meal-type" id="appetizer" type="checkbox" value="appetizer">Appetizer<br>
-                        <input name="create-meal-type" id="soup" type="checkbox" value="soup">Suppe<br>
-                        <input name="create-meal-type" id="starter" type="checkbox" value="starter">Vorspeise<br>
-                        <input name="create-meal-type" id="main course" type="checkbox" value="main course">Hauptgericht<br>
-                        <input name="create-meal-type" id="side dish" type="checkbox" value="side dish">Nebengericht<br>
-                        <input name="create-meal-type" id="dessert" type="checkbox" value="dessert">Nachspeise<br>
+                        <input name="create-meal-type" id="appetizer" type="checkbox" value="appetizer"> Appetizer<br>
+                        <input name="create-meal-type" id="soup" type="checkbox" value="soup"> Suppe<br>
+                        <input name="create-meal-type" id="starter" type="checkbox" value="starter"> Vorspeise<br>
+                        <input name="create-meal-type" id="main course" type="checkbox" value="main course"> Hauptgericht<br>
+                        <input name="create-meal-type" id="side dish" type="checkbox" value="side dish"> Nebengericht<br>
+                        <input name="create-meal-type" id="dessert" type="checkbox" value="dessert"> Nachspeise<br>
                     </section>
                     <br>
                     <section id="create-meal-times">Mahlzeiten:
                         <br>
-                        <input name="create-meal-type" id="snack" type="checkbox" value="snack">Snack<br>
-                        <input name="create-meal-type" id="dinner" type="checkbox" value="dinner">Abendessen<br>
-                        <input name="create-meal-type" id="lunch" type="checkbox" value="lunch">Mittagessen<br>
-                        <input name="create-meal-type" id="breakfast" type="checkbox" value="breakfast">Frühstück<br>
+                        <input name="create-meal-type" id="snack" type="checkbox" value="snack"> Snack<br>
+                        <input name="create-meal-type" id="dinner" type="checkbox" value="dinner"> Abendessen<br>
+                        <input name="create-meal-type" id="lunch" type="checkbox" value="lunch"> Mittagessen<br>
+                        <input name="create-meal-type" id="breakfast" type="checkbox" value="breakfast"> Frühstück<br>
                     </section>
                 </div>
             </div>

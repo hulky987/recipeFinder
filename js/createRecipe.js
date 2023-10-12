@@ -5,7 +5,16 @@ const addIngredientButton = document.getElementById("add-ingredient");
 
 // creates a new ingredient input field
 const createIngredientInput = () => {
-    const unitValues = [{unit:"g", name:"g"}, {unit:"kg",name:"kg"}, {unit:"ml",name:"ml"}, {unit:"l",name:"l"},{unit: "pieces",name:"Stück"}, {unit:"teaspoon",name:"TL"}, {unit:"tablespoon",name:"EL"},{unit:"pinch",name: "Prise"},{unit:"cup",name: "Tasse"},{unit:"package",name: "Packung"}, {unit:"can", name:"Dose"}]
+    const unitValues = [{unit: "g", name: "g"}, {unit: "kg", name: "kg"}, {unit: "ml", name: "ml"}, {
+        unit: "l",
+        name: "l"
+    }, {unit: "pieces", name: "Stück"}, {unit: "teaspoon", name: "TL"}, {
+        unit: "tablespoon",
+        name: "EL"
+    }, {unit: "pinch", name: "Prise"}, {unit: "cup", name: "Tasse"}, {unit: "package", name: "Packung"}, {
+        unit: "can",
+        name: "Dose"
+    }]
     const div = document.createElement("div");
     div.setAttribute("class", "create-ingredients-container");
 
@@ -29,6 +38,7 @@ const createIngredientInput = () => {
     amountInput.setAttribute("type", "number");
     amountInput.setAttribute("name", "create-amount");
     amountInput.setAttribute("placeholder", "Menge");
+    amountInput.setAttribute("min", "0");
 
     div.appendChild(ingredientInput);
     div.appendChild(amountInput);
@@ -42,13 +52,12 @@ addIngredientButton.addEventListener("click", (event) => {
 })
 
 
-
-
 form.addEventListener("submit", (event) => {
     "use strict"
     event.preventDefault()
     event.stopPropagation()
 
+    let url = ""
     // getting the recipes out of the local storage
     const recipeList = getRecipeListFromLocalStorage();
     const units = recipeList.map(recipe => recipe.extendedIngredients.map(ingredient => ingredient.unit))
@@ -58,6 +67,8 @@ form.addEventListener("submit", (event) => {
     const extendedIngredients = Array.from(ingredientsContainer).map(element => {
         return {name: element.children[0].value, amount: element.children[1].value, unit: element.children[2].value}
     });
+
+
 
     const title = document.getElementById("title");
     const instructions = document.getElementById("instructions");
@@ -69,8 +80,21 @@ form.addEventListener("submit", (event) => {
     const summary = document.getElementById("summary");
     const diets = recipeList.map(recipe => recipe.diets)
     const types = recipeList.map(recipe => recipe.dishTypes)
-    // creating the recipe object
+
+
+    if (mealTypes.includes("dinner" | "lunch")) {
+        url = "https://images.pexels.com/photos/1813505/pexels-photo-1813505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    } else if (mealTypes.includes("breakfast")) {
+        url = "https://images.pexels.com/photos/1426715/pexels-photo-1426715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    } else if (mealTypes.includes("snack")) {
+        url = "https://media.istockphoto.com/id/1149135424/de/foto/gruppe-von-s%C3%BC%C3%9Fen-und-salzigen-snacks-perfekt-zum-binge-watching.jpg?s=2048x2048&w=is&k=20&c=LHXvf4bnG9f5kgHb4rgi4dxQDC5HwnPcjPrNoHiUSO8="
+    } else {
+        url = "https://images.pexels.com/photos/1640771/pexels-photo-1640771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+
+
     const recipe = {
+        "image": url,
         "title": title.value,
         "summary": summary.value,
         "instructions": instructions.value,

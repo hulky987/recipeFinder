@@ -67,16 +67,18 @@ function showFilteredRecipes(list) {
             recipeItem.addEventListener("click", function () {
                 createSummary(recipe);
             });
-            recipeItem.innerHTML = `${recipeImage.outerHTML}<div>${recipe.title}</div>`;
+            recipeItem.innerHTML = `${recipeImage.outerHTML}<div class="itemDescription">${recipe.title}</div>`;
             recipeResponse.appendChild(recipeItem);
         })
         errorResponse.textContent = "";
     } else {
-        errorResponse.textContent = "No recipes found. Please try it with antoher input."
+        errorResponse.textContent = "No recipes found. Please try it with another input."
     }
 
     timeFilterDiv.style.display = "block";
 }
+
+
 
 async function filterRecipeListByIngredients(recipeList) {
     filteredRecipeList = [];
@@ -94,14 +96,14 @@ async function filterRecipeListByIngredients(recipeList) {
                         let ingredients = element.ingredients;
                         if (ingredients) {
                             for (const element of ingredients) {
-                                let ingredientName = element.name;
+                                let ingredientName = element.name.toLowerCase();
                                 recipeIngredients.push(ingredientName);
                             }
                         }
                     }
                 }
 
-                let containsAllIngredients = ingredientsToFilter.every(ingredient => recipeIngredients.includes(ingredient));
+                let containsAllIngredients = ingredientsToFilter.every(ingredient => recipeIngredients.includes(ingredient.toLowerCase().trim()));
 
                 if (containsAllIngredients) {
                     filteredRecipeList.push(recipe);
@@ -154,60 +156,69 @@ async function filterRecipeListByMealType() {
     });
 }
 
-async function getRecipeInformation(recipeList) {
-
-    const recipeIds = recipeList.map(recipe => recipe.id);
-
-    let recipes = [];
-
-    try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY_3}`);
-        recipes = await response.json();
-
-        recipesWithInformation = recipes;
-    } catch (error) {
-        recipeResponse.textContent = "";
-        errorResponse.textContent = `Fetch Error by getting recipe information: ${error.message}`;
-    }
-}
-
+// async function getRecipeInformation(recipeList) {
+//
+//     const recipeIds = recipeList.map(recipe => recipe.id);
+//
+//     let recipes = [];
+//
+//     try {
+//         const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds}&apiKey=${API_KEY_3}`);
+//         recipes = await response.json();
+//
+//         recipesWithInformation = recipes;
+//     } catch (error) {
+//         recipeResponse.textContent = "";
+//         errorResponse.textContent = `Fetch Error by getting recipe information: ${error.message}`;
+//     }
+// }
 
 function getIngredients(recipe) {
-    let ingredientNames = [];
-
-    let analyzedInstructions = recipe.analyzedInstructions;
-    if (analyzedInstructions) {
-        for (const element of analyzedInstructions) {
-            let steps = element.steps;
-            if (steps) {
-                for (const element of steps) {
-                    let ingredients = element.ingredients;
-                    if (ingredients) {
-                        for (const element of ingredients) {
-                            let ingredientName = element.name;
-                            ingredientNames.push(ingredientName);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return ingredientNames;
+    let ingredients = []
+    let extendedIngredients = recipe.extendedIngredients;
+    extendedIngredients.forEach(ingredient => {
+        let ingredientName = ` ${ingredient.amount} ${ingredient.unit} ${ingredient.name}`
+        ingredients.push(ingredientName)
+    })
+    return ingredients;
 }
+
+//
+// function getIngredients(recipe) {
+//     let ingredientNames = [];
+//
+//     let analyzedInstructions = recipe.analyzedInstructions;
+//     if (analyzedInstructions) {
+//         for (const element of analyzedInstructions) {
+//             let steps = element.steps;
+//             if (steps) {
+//                 for (const element of steps) {
+//                     let ingredients = element.ingredients;
+//                     if (ingredients) {
+//                         for (const element of ingredients) {
+//                             let ingredientName = element.name;
+//                             ingredientNames.push(ingredientName);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     return ingredientNames;
+// }
 
 function createSummary(recipe) {
 
     recipeSummary.innerHTML = "";
 
-    let ingredientNames = getIngredients(recipe);
-
+    let ingredients = getIngredients(recipe)
 
     const summaryView = document.createElement("div");
     summaryView.setAttribute("class", "summaryContent");
     summaryView.innerHTML = `<span class="close">&times;</span>
-<h1>${recipe.title}</h1><img class="summaryImage" src=${recipe.image} alt=${recipe.title}>
-<label>Preparation time:</label><div>${recipe.readyInMinutes} minutes</div>
-<label>Ingredients:</label><div>${ingredientNames}</div><label>Instructions:</label><div class="instructions">${recipe.instructions}</div>
+<h1>${recipe.title}</h1><img class="summaryImage" width="556px" height="370px" src=${recipe.image} alt=${recipe.title}>
+<label>Preparation time:</label><div>${recipe.readyInMinutes} minutes</div><br/>
+<label>Ingredients:</label><div>${ingredients}</div><br/><label>Instructions:</label><div class="instructions">${recipe.instructions}</div><br/>
 <label>Summary</label><div>${recipe.summary}</div>`;
 
     recipeSummary.appendChild(summaryView);
