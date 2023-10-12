@@ -169,8 +169,8 @@ display: flex;
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
-        height: auto;
-        /*overflow: scroll;*/
+        height: 80%;
+        overflow: scroll;
         border-radius: 20px;
 
         & > label {

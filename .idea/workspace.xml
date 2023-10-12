@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b02eef70-b27e-4570-8bf3-72acac44810b" name="Changes" comment="Added requirements to createRecipe.html">
-      <change afterPath="$PROJECT_DIR$/html/favorites.html" afterDir="false" />
+    <list default="true" id="b02eef70-b27e-4570-8bf3-72acac44810b" name="Changes" comment="minimalistic styling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/createRecipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/createRecipe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/createRecipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/createRecipe.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +108,7 @@
       <updated>1696924599588</updated>
       <workItem from="1696924600658" duration="134000" />
       <workItem from="1696924736926" duration="121000" />
-      <workItem from="1697004140658" duration="18663000" />
+      <workItem from="1697004140658" duration="20516000" />
     </task>
     <task id="LOCAL-00001" summary="testcommit">
       <option name="closed" value="true" />
@@ -146,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697007320578</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="minimalistic styling">
+      <option name="closed" value="true" />
+      <created>1697102572230</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697102572230</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +171,7 @@
     <MESSAGE value="testcommit" />
     <MESSAGE value="Changed API -&gt; from spoonacular to localstorage" />
     <MESSAGE value="Added requirements to createRecipe.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added requirements to createRecipe.html" />
+    <MESSAGE value="minimalistic styling" />
+    <option name="LAST_COMMIT_MESSAGE" value="minimalistic styling" />
   </component>
 </project>

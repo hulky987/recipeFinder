@@ -28,6 +28,8 @@ form.addEventListener("submit", async (event) => {
 
     if (ingredients.value.trim() !== "") {
         await filterRecipeListByIngredients(recipesWithInformation);
+        // await filterRecipeListByIngredientsNew(recipesWithInformation);
+
     } else {
         filteredRecipeList = recipesWithInformation;
     }
@@ -79,10 +81,31 @@ function showFilteredRecipes(list) {
 }
 
 
+// async function filterRecipeListByIngredientsNew(recipeList) {
+//     filteredRecipeList = [];
+//     const ingredientsToFilter = ingredients.value.split(",");
+//     console.log(ingredientsToFilter)
+//     for (const recipe of recipeList) {
+//         let recipeIngredients = [];
+//         let extendedIngredients = recipe.extendedIngredients;
+//         if (extendedIngredients) {
+//             for (const ingredient of extendedIngredients) {
+//                 let ingredientName = ingredient.name.toLowerCase();
+//                 recipeIngredients.push(ingredientName);
+//             }
+//             console.log(recipeIngredients)
+//             let containsAllIngredients = ingredientsToFilter.every(ingredient => recipeIngredients.includes(ingredient.toLowerCase().trim()||`${ingredient.toLowerCase().trim()}s`));
+//
+//             if (containsAllIngredients) {
+//                 filteredRecipeList.push(recipe);
+//             }
+//         }
+//     }
+// }
 
 async function filterRecipeListByIngredients(recipeList) {
     filteredRecipeList = [];
-    const ingredientsToFilter = ingredients.value.split();
+    const ingredientsToFilter = ingredients.value.split(",");
     for (const recipe of recipeList) {
         let analyzedInstructions = recipe.analyzedInstructions;
         if (analyzedInstructions) {
