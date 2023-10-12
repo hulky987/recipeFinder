@@ -35,6 +35,18 @@
                 <button type="submit">Rezepte abfragen</button>
             </section>
         </form>
+        <form id="formTimeFilter">
+            <div id="timeFilter" class="timeFilter">
+                <label for="timeFilter">Maximale Zubereitungszeit in Minuten: </label>
+                <input type="radio" name="filterInMinutes" id="15" value="15">15
+                <input type="radio" name="filterInMinutes" id="30" value="30">30
+                <input type="radio" name="filterInMinutes" id="45" value="45">45
+                <input type="radio" name="filterInMinutes" id="60" value="60">60
+                <input type="radio" name="filterInMinutes" id="75" value="75">75
+                <button type="submit">Ergebnisse filtern</button>
+            </div>
+        </form>
+
         <div id="recipeResponse" class="recipeResponse"></div>
         <div id="errorResponse"></div>
         <div id="recipeItem" class="recipeItem"></div>

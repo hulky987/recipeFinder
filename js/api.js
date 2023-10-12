@@ -7,6 +7,9 @@ const errorResponse = document.getElementById("errorResponse");
 const dietTypes = document.getElementsByTagName("option");
 const mealTypes = document.getElementsByTagName("input");
 const recipeSummary = document.getElementById("recipeSummary");
+const formTimeFilter = document.getElementById("formTimeFilter");
+const filterTime = document.getElementsByName("filterInMinutes");
+const timeFilterDiv = document.getElementById("timeFilter");
 
 const API_KEY = "59e199f1b62247779346095f4dfe259e";
 const API_KEY_2 = "62efe392f0484ea0b724363f2c26dbfe";
@@ -17,6 +20,7 @@ let filteredRecipeList = [];
 
 let mealTypeValue = "";
 let dietTypeValue = "";
+let filterTimeValue = 500;
 
 form.addEventListener("submit", async (event) => {
 
@@ -41,9 +45,20 @@ form.addEventListener("submit", async (event) => {
     }
 
 
+    showFilteredRecipes(filteredRecipeList);
+
+
+    console.log(`dietType: `, dietTypeValue, '\nmealType: ', mealTypeValue,
+        `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
+
+    form.reset();
+});
+
+function showFilteredRecipes(list) {
+
     recipeResponse.innerHTML = "";
-    if (filteredRecipeList.length > 0) {
-        filteredRecipeList.forEach(recipe => {
+    if (list.length > 0) {
+        list.forEach(recipe => {
             const recipeImage = document.createElement("img");
             recipeImage.setAttribute("src", `${recipe.image}`);
             recipeImage.setAttribute("class", "recipeImage");
@@ -60,12 +75,8 @@ form.addEventListener("submit", async (event) => {
         errorResponse.textContent = "No recipes found. Please try it with antoher input."
     }
 
-
-    console.log(`dietType: `, dietTypeValue, '\nmealType: ', mealTypeValue,
-        `\nrecipeListWithInformation: `, recipesWithInformation, `\nfilteredRecipeList: `, filteredRecipeList);
-
-    form.reset();
-});
+    timeFilterDiv.style.display = "block";
+}
 
 async function filterRecipeListByIngredients(recipeList) {
     filteredRecipeList = [];
@@ -212,6 +223,32 @@ function createSummary(recipe) {
 
     span.onclick = function () {
         recipeSummary.style.display = "none";
+    }
+}
+
+
+formTimeFilter.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    determineCheckedFilterTime();
+    await filterRecipeListByPreparationTime();
+
+    showFilteredRecipes(filteredRecipeList);
+
+    formTimeFilter.reset();
+});
+
+async function filterRecipeListByPreparationTime() {
+    filteredRecipeList = filteredRecipeList.filter(recipe => {
+        return recipe.readyInMinutes <= filterTimeValue;
+    });
+}
+
+function determineCheckedFilterTime() {
+    for (const element of filterTime) {
+        if (element.checked) {
+            filterTimeValue = element.value;
+        }
     }
 }
 

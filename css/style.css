@@ -144,3 +144,8 @@ form {
     }
 }
 
+.timeFilter {
+    display: none;
+    padding: 2rem;
+}
+
